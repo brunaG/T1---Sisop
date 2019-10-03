@@ -4,35 +4,45 @@
 #include "../include/support.h"
 #include "../include/cthread.h"
 #include "../include/cdata.h"
-
+#include "../include/escalonador.h"
+#define ERROR -9;
+#define SUCCESS 0;
 
 int ccreate (void* (*start)(void*), void *arg, int prio) {
-	return -1;
+	return ERROR;
 }
 
 int cyield(void) {
-	return -1;
+	return ERROR;
 }
 
 int cjoin(int tid) {
-	return -1;
+	return ERROR;
 }
 
 int csem_init(csem_t *sem, int count) {
-	return -1;
+	return ERROR;
 }
 
 int cwait(csem_t *sem) {
-	return -1;
+	return ERROR;
 }
 
 int csignal(csem_t *sem) {
-	return -1;
+	return ERROR;
 }
 
 int cidentify (char *name, int size) {
-	strncpy (name, "Sergio Cechin - 2019/2 - Teste de compilacao.", size);
-	return 0;
+
+	char *groupNames =
+        "Luma Beserra Monteiro - 00268612"
+        "Bruna Gonzaga - "
+        "Roberta Robert - ";
+
+	if (!strncpy(name, groupNames, size))
+	{
+	    return ERROR;
+	}
+
+	return SUCCESS;
 }
-
-
