@@ -4,7 +4,7 @@
 #include "../include/support.h"
 #include "../include/cthread.h"
 #include "../include/cdata.h"
-#include "../include/.h"
+#include "../include/escalonador.h"
 #define ERROR -9;
 #define SUCCESS 0;
 
