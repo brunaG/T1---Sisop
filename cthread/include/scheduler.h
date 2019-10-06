@@ -4,4 +4,5 @@
 #include "../include/cthread.h"
 #include "../include/cdata.h"
 
-int schedulerInitializer();
+int SchedulerInitializer();
+int GetTid();

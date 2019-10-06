@@ -9,7 +9,20 @@
 #define SUCCESS 0;
 
 int ccreate (void* (*start)(void*), void *arg, int prio) {
-	return ERROR;
+
+	//Inicializa o escalonador
+	SchedulerInitializer();
+
+	//Cria o objeto
+	TCB_t * newThread = (TCB_t *)malloc(sizeof(TCB_t));
+    newThread->tid = GetTid();
+    newThread->state = 0;
+    newThread->prio = prio;
+
+	//Pegar o contexto
+
+
+	return newThread->tid;
 }
 
 int cyield(void) {
