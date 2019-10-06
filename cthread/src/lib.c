@@ -4,9 +4,18 @@
 #include "../include/support.h"
 #include "../include/cthread.h"
 #include "../include/cdata.h"
-#include "../include/escalonador.h"
+#include "../include/.h"
 #define ERROR -9;
 #define SUCCESS 0;
+
+#define TAMANHO_PILHA SIGSTKSZ
+
+//Threads
+
+//Contexto
+ucontext_t threadTerminada;
+ucontext_t contextoYield;
+
 
 int ccreate (void* (*start)(void*), void *arg, int prio) {
 
@@ -20,7 +29,14 @@ int ccreate (void* (*start)(void*), void *arg, int prio) {
     newThread->prio = prio;
 
 	//Pegar o contexto
+    getcontext(&newThread->context);
 
+    newThread->context.uc_link = &threadTerminada;
+    newThread->context.uc_stack.ss_sp = (char*) malloc(TAMANHO_PILHA);
+    newThread->context.uc_stack.ss_size = TAMANHO_PILHA;
+
+
+    makecontext(&newThread->context, (void (*)(void))start, 1, arg);
 
 	return newThread->tid;
 }
