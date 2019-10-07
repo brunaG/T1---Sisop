@@ -20,7 +20,7 @@ ucontext_t contextoYield;
 int ccreate (void* (*start)(void*), void *arg, int prio) {
 
 	//Inicializa o escalonador
-	SchedulerInitializer();
+	InitEscalonador();
 
 	//Cria o objeto
 	TCB_t * newThread = (TCB_t *)malloc(sizeof(TCB_t));
