@@ -5,10 +5,13 @@
 #include "../include/cthread.h"
 #include "../include/cdata.h"
 #include "../include/escalonador.h"
+
 #define ERROR -9;
 #define SUCCESS 0;
-
 #define TAMANHO_PILHA SIGSTKSZ
+
+//Helper vars
+bool escalonador = false;
 
 //Threads
 
@@ -21,6 +24,7 @@ int ccreate (void* (*start)(void*), void *arg, int prio) {
 
 	//Inicializa o escalonador
 	InitEscalonador();
+	escalonador = true;
 
 	//Cria o objeto
 	TCB_t * newThread = (TCB_t *)malloc(sizeof(TCB_t));
@@ -54,7 +58,25 @@ int csem_init(csem_t *sem, int count) {
 }
 
 int cwait(csem_t *sem) {
-	return ERROR;
+
+    if (!escalonador)
+        InitEscalonador();
+
+    if(sem == null)
+        return ERROR;
+
+    if(sem->count > 0)
+    {
+        sem->count--;
+        return SUCCESS;
+    }
+
+    if(sem->fila == null)
+        return ERROR;
+
+    //bloqueia a thread
+
+	return SUCCESS;
 }
 
 int csignal(csem_t *sem) {
