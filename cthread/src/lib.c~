@@ -15,6 +15,8 @@
 
 //Helper vars
 bool escalonador = false;
+int executando = -1 
+int yield = 0;
 
 //Threads
 
@@ -49,6 +51,18 @@ int ccreate (void* (*start)(void*), void *arg, int prio) {
 }
 
 int cyield(void) {
+    if(executando == -1){
+        InitThreadMain(); //inicializa
+        if(sucesso == -1){
+            return -1;
+        }
+    }
+
+    yield = 1;
+    swapcontext(&executing->context,&contextoYield);
+
+    return 0;
+	
 	return ERROR;
 }
 
