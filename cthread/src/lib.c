@@ -18,7 +18,6 @@ bool escalonador = false;
 int executando = -1 
 int yield = 0;
 
-//Threads
 
 //Contexto
 ucontext_t threadTerminada;
@@ -53,7 +52,7 @@ int ccreate (void* (*start)(void*), void *arg, int prio) {
 int cyield(void) {
     if(executando == -1){
         InitThreadMain(); //inicializa
-        if(sucesso == -1){
+        if(threadMain == -1){
             return -1;
         }
     }
