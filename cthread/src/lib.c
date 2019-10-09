@@ -14,8 +14,7 @@
 #define TAMANHO_PILHA SIGSTKSZ
 
 //Helper vars
-bool escalonador = false;
-int executando = -1 
+int executando = -1
 int yield = 0;
 
 
@@ -61,7 +60,7 @@ int cyield(void) {
     swapcontext(&executing->context,&contextoYield);
 
     return 0;
-	
+
 	return ERROR;
 }
 
@@ -77,7 +76,7 @@ int csem_init(csem_t *sem, int count){
 
 	sem->count = count;
 	sem->fila = (PFILA2) malloc(sizeof(FILA2));
-	
+
 	 verifica se o recurso esta ocopado.
 
 	if (CreateFila2(sem->fila) == 0) {
@@ -85,29 +84,33 @@ int csem_init(csem_t *sem, int count){
   	} else {
     	return  ERROR;
   	}
-	
+
 }
 
 int cwait(csem_t *sem) {
 
-    if (!escalonador)
+    if (executando == -1)
         InitEscalonador();
 
-    if(sem == null)
+    if (sem == null)
         return ERROR;
 
-    if(sem->count > 0)
+    if (sem->count > 0)
     {
         sem->count--;
         return SUCCESS;
     }
 
-    if(sem->fila == null)
-        return ERROR;
-
     //bloqueia a thread
+    TBC_t *tempThread;
+    tempThread = GetThread();
 
-	return SUCCESS;
+    if (AppendFila2(sem->file, tempThread) != 0)
+        return EROOR;
+
+    threadTerminada->state = PROCST_BLOQ;
+
+	return Dispacher();
 }
 
 int csignal(csem_t *sem) {
@@ -118,8 +121,8 @@ int cidentify (char *name, int size) {
 
 	char *groupNames =
         "Luma Beserra Monteiro - 00268612"
-        "Bruna Gonzaga - "
-        "Roberta Robert - ";
+        "Bruna Gonzaga - 00252743"
+        "Roberta Robert - 00194285";
 
 	if (!strncpy(name, groupNames, size))
 	{

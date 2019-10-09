@@ -5,9 +5,6 @@
 #include "../include/cdata.h"
 #include "../include/escalonador.h"
 
-#define APTO 1
-#define EXCEUTANDO 2
-#define BLOQUEADO 3
 #define TAMANHO_PILHA SIGSTKSZ
 
 TCB_t *executing = NULL;
@@ -18,7 +15,7 @@ csem_t csem;
 int InitEscalonador()
 {
     if (executing != NULL)
-        return APTO;
+        return PROCST_EXEC;
 
     int status = 0;
 
@@ -51,7 +48,7 @@ void InitThreadMain()
 {
     TCB_t * threadMain = (TCB_t *)malloc(sizeof(TCB_t));
     threadMain->tid = 0;
-    threadMain->state = 1;
+    threadMain->state = PROCST_EXEC;
     threadMain->prio = 0;
 
     getcontext(&threadMain->context);
@@ -64,4 +61,14 @@ void InitThreadMain()
     makecontext(&threadMain->context, (void (*)(void))start, 1, arg);
 
     executing = threadMain;
+}
+
+TBC_t *GetThread()
+{
+    return executing;
+}
+
+int Dispacher()
+{
+    return -9;
 }

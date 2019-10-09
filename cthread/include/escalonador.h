@@ -7,3 +7,5 @@
 int InitEscalonador();
 int GetTid();
 void InitThreadMain();
+TBC_t *GetThread();
+int Dispacher();
